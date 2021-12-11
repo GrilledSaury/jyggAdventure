@@ -18,6 +18,7 @@ let time0 = $ref(0)
 let reverse = $ref(false)
 let combo = $ref(0)
 let stage = $ref(0)
+let usedtime = $ref(0)
 
 let ans = true
 
@@ -55,11 +56,12 @@ function change (a) {
 
 function start () {
   time0 = Date.now()
+  clock = setInterval(() => { usedtime = (Date.now() - time0) / 1000 }, 16)
 }
 
 function stop () {
-  const last = (Date.now() - time0) / 1000
-  console.log({ last, stage, combo })
+  console.log({ usedtime, stage, combo })
+  clearInterval(clock)
   time0 = 0
   style.bg = 'bg-white'
   style.text = 'bg-black-500'
@@ -69,6 +71,9 @@ function stop () {
   ans = true
 }
 
+let clock
+
+
 </script>
 
 <template>
@@ -77,6 +82,6 @@ function stop () {
     <div v-if="!time0" class="text-4xl cursor-pointer all-transition mt-10 font-mono" @click="start">CLICK HERE TO START</div>
     <div v-if="reverse" class="text-4xl text-red-500 all-transition mt-10 font-mono">REVERSE</div>
   </div>
-  <div class="absolute top-8 right-8 text-4xl font-mono">stage: {{ stage }}, combo: {{ combo }}</div>
-  <button class="absolute top-8 left-8 text-4xl font-mono" :class="style.text" @click="stop">GIVE UP</button>
+  <div v-if="time0" class="absolute top-8 right-8 text-4xl font-mono">used time: {{ usedtime }}, stage: {{ stage }}, combo: {{ combo }}</div>
+  <button v-if="time0" class="absolute top-8 left-8 text-4xl font-mono" :class="style.text" @click="stop">GIVE UP</button>
 </template>
