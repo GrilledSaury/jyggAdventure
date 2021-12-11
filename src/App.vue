@@ -82,6 +82,6 @@ let clock
     <div v-if="!time0" class="text-4xl cursor-pointer all-transition mt-10 font-mono" @click="start">CLICK HERE TO START</div>
     <div v-if="reverse" class="text-4xl text-red-500 all-transition mt-10 font-mono">REVERSE</div>
   </div>
-  <div v-if="time0" class="absolute top-8 right-8 text-4xl font-mono">used time: {{ usedtime }}, stage: {{ stage }}, combo: {{ combo }}</div>
+  <div v-if="time0" class="absolute top-8 right-8 text-4xl font-mono">used time: {{ usedtime.toFixed(3) }}, stage: {{ stage }}, combo: {{ combo }}</div>
   <button v-if="time0" class="absolute top-8 left-8 text-4xl font-mono" :class="style.text" @click="stop">GIVE UP</button>
 </template>
