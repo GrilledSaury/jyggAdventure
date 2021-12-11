@@ -19,12 +19,11 @@ let reverse = $ref(false)
 let combo = $ref(0)
 let stage = $ref(0)
 
-let ans = true, cnt = 0
+let ans = true
 
 function change (a) {
   if (!time0) return
   if (a == ans) {
-    cnt ++
     combo ++
   }
   else {
@@ -60,7 +59,7 @@ function start () {
 
 function stop () {
   const last = (Date.now() - time0) / 1000
-  console.log({ last, stage, cnt })
+  console.log({ last, stage, combo })
   time0 = 0
   style.bg = 'bg-white'
   style.text = 'bg-black-500'
