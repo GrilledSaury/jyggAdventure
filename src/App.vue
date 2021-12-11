@@ -43,6 +43,7 @@ function change (a) {
   let t = c
   if (!ans) while (t == c) t = Math.floor(Math.random() * L)
   if (stage > 1 && Math.random() < 0.1) style.bg = data[b].bg
+  else style.bg = 'bg-white'
   style.text = data[t].text
   if (stage > 0 && Math.random() < 0.1) style.text += ' rotate-180'
   style.content = data[c].content[0]
