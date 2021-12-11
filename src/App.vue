@@ -31,6 +31,7 @@ function change (a) {
     console.log(style, ans, a)
     wcnt ++
     combo = 0
+    stage = 0
   }
   if (combo == 25) stage = 1
   if (combo == 50) stage = 2
