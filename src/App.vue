@@ -22,10 +22,12 @@ let usedtime = $ref(0)
 
 let ans = true
 
+const res = []
+
 async function save() {
   const newHandle = await window.showSaveFilePicker();
   const writableStream = await newHandle.createWritable();
-  const blob=new Blob([JSON.stringify(usedtime, stage, combo)], {type : 'application/json'})
+  const blob = new Blob([JSON.stringify(res)], {type : 'application/json'})
   await writableStream.write(blob);
   await writableStream.close();
 }
@@ -69,7 +71,7 @@ function start () {
 
 function stop () {
   console.log({ usedtime, stage, combo })
-  save()
+  res.push([usedtime, stage, combo])
   clearInterval(clock)
   time0 = 0
   style.bg = 'bg-white'
@@ -91,6 +93,7 @@ let clock
     <div class="all-transition text-8xl" :class="style.text">{{ style.content }}</div>
     <div v-if="!time0" class="text-4xl cursor-pointer all-transition mt-10 font-mono" @click="start">CLICK HERE TO START</div>
     <div v-if="reverse" class="text-4xl text-red-500 all-transition mt-10 font-mono">REVERSE</div>
+    <button class="absolute buttom-8 right-8 text-4xl font-mono" @click="save">SAVE</button>
   </div>
   <div v-if="time0" class="absolute top-8 right-8 text-4xl font-mono">used time: {{ usedtime.toFixed(3) }}, stage: {{ stage }}, combo: {{ combo }}</div>
   <button v-if="time0" class="absolute top-8 left-8 text-4xl font-mono" :class="style.text" @click="stop">GIVE UP</button>
