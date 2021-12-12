@@ -1,13 +1,16 @@
 <script setup>
 
-const data = [{ bg: 'bg-blue-200', text: 'text-blue-500', content: ['蓝', 'blue'] },
-  { bg: 'bg-red-200', text: 'text-red-500', content: ['红', 'red'] },
-  { bg: 'bg-gray-200', text: 'text-black', content: ['黑', 'black'] },
-  { bg: 'bg-yellow-200', text: 'text-yellow-500', content: ['黄', 'yellow'] },
-  { bg: 'bg-purple-200', text: 'text-purple-500', content: ['紫', 'purple'] },
-  { bg: 'bg-green-200', text: 'text-green-500', content: ['绿', 'green'] }]
+const data = [{ bg: 'bg-blue-200', text: 'text-blue-500', content: ['蓝', 'Blue'] },
+  { bg: 'bg-red-200', text: 'text-red-500', content: ['红', 'Red'] },
+  { bg: 'bg-gray-200', text: 'text-black', content: ['黑', 'Black'] },
+  { bg: 'bg-yellow-200', text: 'text-yellow-500', content: ['黄', 'Yellow'] },
+  { bg: 'bg-purple-200', text: 'text-purple-500', content: ['紫', 'Purple'] },
+  { bg: 'bg-green-200', text: 'text-green-500', content: ['绿', 'Green'] },
+  { bg: 'bg-cyan-200', text: 'text-cyan-500', content: ['青','Cyan'] },
+  { bg: 'bg-orange-200', text: 'text-orange-500', content: ['橙','Orange'] },
+  { bg: 'bg-pink-200', text: 'text-pink-500', content: ['粉','Pink'] }]
 
-const rate = [0.7, 0.6, 0.5, 0.4, 0.3]
+const rate = [0.65, 0.5, 0.35, 0.2, 0.2]
 
 let style = $ref({})
 style.bg = 'bg-white'
@@ -41,23 +44,23 @@ function change (a) {
     stop()
     return
   }
-  if (combo == 25) stage = 1
-  if (combo == 50) stage = 2
-  if (combo == 75) stage = 3
-  if (combo == 100) stage = 4
+  if (combo == 30) stage = 1
+  if (combo == 60) stage = 2
+  if (combo == 90) stage = 3
+  if (combo == 120) stage = 4
   ans = Boolean(Math.random() < rate[stage])
   const L = data.length
   const b = Math.floor(Math.random() * L)
   const c = Math.floor(Math.random() * L)
   let t = c
   if (!ans) while (t == c) t = Math.floor(Math.random() * L)
-  if (stage > 1 && Math.random() < 0.1) style.bg = data[b].bg
+  if (stage > 1 && Math.random() < 0.3) style.bg = data[b].bg
   else style.bg = 'bg-white'
   style.text = data[t].text
-  if (stage > 0 && Math.random() < 0.1) style.text += ' rotate-180'
+  if (stage > 0 && Math.random() < 0.3) style.text += ' rotate-180'
   style.content = data[c].content[0]
-  if (stage > 2 && Math.random() < 0.1) style.content = data[c].content[1]
-  if (stage > 3 && Math.random() < 0.1) {
+  if (stage > 2 && Math.random() < 0.3) style.content = data[c].content[1]
+  if (stage > 3 && Math.random() < 0.3) {
     reverse = true
     ans = ans ? false : true
   }
