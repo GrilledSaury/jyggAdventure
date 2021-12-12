@@ -68,6 +68,7 @@ function stop () {
   style.content = 'Hello!'
   combo = 0
   stage = 0
+  reverse = false
   ans = true
 }
 
