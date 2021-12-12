@@ -22,6 +22,14 @@ let usedtime = $ref(0)
 
 let ans = true
 
+async function save() {
+  const newHandle = await window.showSaveFilePicker();
+  const writableStream = await newHandle.createWritable();
+  const blob=new Blob([JSON.stringify(usedtime, stage, combo)], {type : 'application/json'})
+  await writableStream.write(blob);
+  await writableStream.close();
+}
+
 function change (a) {
   if (!time0) return
   if (a == ans) {
@@ -61,6 +69,7 @@ function start () {
 
 function stop () {
   console.log({ usedtime, stage, combo })
+  save()
   clearInterval(clock)
   time0 = 0
   style.bg = 'bg-white'
