@@ -12,7 +12,7 @@ enter target folder
 
 红 黄 绿 黑 蓝 青 紫 **橙 粉**
 
-Red Yellow Green Black Blue Cyan Purple **Grange Pink**
+Red Yellow Green Black Blue Cyan Purple **Orange Pink**
 
 
 
