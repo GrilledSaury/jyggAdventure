@@ -1,4 +1,5 @@
 <script setup>
+import { PlusIcon } from '@heroicons/vue/outline'
 
 const data = [{ bg: 'bg-blue-200', text: 'text-blue-500', content: ['蓝', 'Blue'] },
   { bg: 'bg-red-200', text: 'text-red-500', content: ['红', 'Red'] },
@@ -10,9 +11,10 @@ const data = [{ bg: 'bg-blue-200', text: 'text-blue-500', content: ['蓝', 'Blue
   { bg: 'bg-orange-200', text: 'text-orange-500', content: ['橙','Orange'] },
   { bg: 'bg-pink-200', text: 'text-pink-500', content: ['粉','Pink'] }]
 
-const rate = [0.65, 0.5, 0.35, 0.2, 0.2, 0.2]
+const rate = [0.65, 0.5, 0.35, 0.2, 0.2, 0.2, 0.2]
 
 let style = $ref({})
+let plus = $ref('')
 style.bg = 'bg-white'
 style.text = 'bg-black-500'
 style.content = 'Hello!'
@@ -20,12 +22,19 @@ style.content = 'Hello!'
 let time0 = $ref(0)
 let reverse = $ref(false)
 let combo = $ref(0)
-let stage = $ref(0)
+let stage = $ref(6)
 let usedtime = $ref(0)
-
+let colorPlus = $ref('')
 let ans = true
 
 const res = []
+
+const renderPlus = () => {
+  const alpha = Math.random() * 360
+  const theta = Math.random() * 3.1416
+  const r = 80
+  return `transform: translate(${r * Math.cos(theta)}px, ${r * Math.sin(theta)}px) rotate(${alpha}deg)`
+}
 
 async function save() {
   const newHandle = await window.showSaveFilePicker();
@@ -49,6 +58,7 @@ function change (a) {
   if (combo == 90) stage = 3
   if (combo == 120) stage = 4
   if (combo == 150) stage = 5
+  if (combo == 180) stage = 6
   ans = Boolean(Math.random() < rate[stage])
   const L = stage > 3 ? 9 : 7
   const b = Math.floor(Math.random() * L)
@@ -61,11 +71,16 @@ function change (a) {
   if (stage > 0 && Math.random() < 0.3) style.text += ' rotate-180'
   style.content = data[c].content[0]
   if (stage > 2 && Math.random() < 0.3) style.content = data[c].content[1]
+  if (stage > 5 && Math.random() < 0.3) {
+    plus = renderPlus()
+    colorPlus = data[ans ? () => { let t = c; while (t == c) t = Math.floor(Math.random() * L); return t } : c].text
+  }
+  else plus = ''
   if (stage > 4 && Math.random() < 0.3) {
     reverse = true
     ans = ans ? false : true
   }
-  else reverse = false
+  else reverse = false 
 }
 
 function start () {
@@ -93,11 +108,12 @@ let clock
 </script>
 
 <template>
-  <div class="all-transition h-screen flex flex-col items-center justify-center" :class="style.bg" @click.left="change(true)" @click.right="change(false)" @contextmenu.prevent>
+  <div class="all-transition relative h-screen flex flex-col items-center justify-center" :class="style.bg" @click.left="change(true)" @click.right="change(false)" @contextmenu.prevent>
     <div class="all-transition text-8xl" :class="style.text">{{ style.content }}</div>
     <div v-if="!time0" class="text-4xl cursor-pointer all-transition mt-10 font-mono" @click="start">CLICK HERE TO START</div>
     <div v-if="reverse" class="text-4xl text-red-500 all-transition mt-10 font-mono">REVERSE</div>
     <button class="absolute buttom-8 right-8 text-4xl font-mono" @click="save">SAVE</button>
+    <plus-icon v-if="plus" class="fixed w-24 h-24" :style="plus" :class="colorPlus"/>
   </div>
   <div v-if="time0" class="absolute top-8 right-8 text-4xl font-mono">used time: {{ usedtime.toFixed(3) }}, stage: {{ stage }}, combo: {{ combo }}</div>
   <button v-if="time0" class="absolute top-8 left-8 text-4xl font-mono" :class="style.text" @click="stop">GIVE UP</button>
