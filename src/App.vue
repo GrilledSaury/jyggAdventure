@@ -22,7 +22,7 @@ style.content = 'Hello!'
 let time0 = $ref(0)
 let reverse = $ref(false)
 let combo = $ref(0)
-let stage = $ref(6)
+let stage = $ref(0)
 let usedtime = $ref(0)
 let colorPlus = $ref('')
 let ans = true
@@ -61,8 +61,8 @@ function change (a) {
   if (combo == 180) stage = 6
   ans = Boolean(Math.random() < rate[stage])
   const L = stage > 3 ? 9 : 7
-  const b = Math.floor(Math.random() * L)
-  const c = Math.floor(Math.random() * L)
+  const b = Math.floor(Math.random() * L + 0.5)
+  const c = Math.floor(Math.random() * L + 0.5)
   let t = c
   if (!ans) while (t == c) t = Math.floor(Math.random() * L)
   if (stage > 1 && Math.random() < 0.3) style.bg = data[b].bg
@@ -73,7 +73,7 @@ function change (a) {
   if (stage > 2 && Math.random() < 0.3) style.content = data[c].content[1]
   if (stage > 5 && Math.random() < 0.3) {
     plus = renderPlus()
-    colorPlus = data[ans ? () => { let t = c; while (t == c) t = Math.floor(Math.random() * L); return t } : c].text
+    colorPlus = data[ans ? () => { let t = c; while (t == c) t = Math.floor(Math.random() * L + 0.5); return t } : c].text
   }
   else plus = ''
   if (stage > 4 && Math.random() < 0.3) {
