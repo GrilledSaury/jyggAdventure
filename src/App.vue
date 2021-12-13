@@ -10,7 +10,7 @@ const data = [{ bg: 'bg-blue-200', text: 'text-blue-500', content: ['蓝', 'Blue
   { bg: 'bg-orange-200', text: 'text-orange-500', content: ['橙','Orange'] },
   { bg: 'bg-pink-200', text: 'text-pink-500', content: ['粉','Pink'] }]
 
-const rate = [0.65, 0.5, 0.35, 0.2, 0.2]
+const rate = [0.65, 0.5, 0.35, 0.2, 0.2, 0.2]
 
 let style = $ref({})
 style.bg = 'bg-white'
@@ -48,8 +48,9 @@ function change (a) {
   if (combo == 60) stage = 2
   if (combo == 90) stage = 3
   if (combo == 120) stage = 4
+  if (combo == 150) stage = 5
   ans = Boolean(Math.random() < rate[stage])
-  const L = data.length
+  const L = stage > 3 ? 9 : 7
   const b = Math.floor(Math.random() * L)
   const c = Math.floor(Math.random() * L)
   let t = c
@@ -60,7 +61,7 @@ function change (a) {
   if (stage > 0 && Math.random() < 0.3) style.text += ' rotate-180'
   style.content = data[c].content[0]
   if (stage > 2 && Math.random() < 0.3) style.content = data[c].content[1]
-  if (stage > 3 && Math.random() < 0.3) {
+  if (stage > 4 && Math.random() < 0.3) {
     reverse = true
     ans = ans ? false : true
   }
