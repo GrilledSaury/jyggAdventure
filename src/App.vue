@@ -66,7 +66,6 @@ function change (a) {
   const t = ans ? c : (() => { let res = c; while (res == c) res = Math.floor(Math.random() * L); return res })()
   if (stage > 1 && Math.random() < 0.3) style.bg = data[b].bg
   else style.bg = 'bg-white'
-  console.log(ans, t)
   style.text = data[t].text
   if (stage > 0 && Math.random() < 0.3) style.text += ' rotate-180'
   style.content = data[c].content[0]
