@@ -44,15 +44,7 @@ async function save() {
   await writableStream.close();
 }
 
-function change (a) {
-  if (!time0) return
-  if (a == ans) {
-    combo ++
-  }
-  else {
-    stop()
-    return
-  }
+function change () {
   if (combo == 30) stage = 1
   if (combo == 60) stage = 2
   if (combo == 90) stage = 3
@@ -82,6 +74,23 @@ function change (a) {
   else reverse = false 
 }
 
+function manualchange (a) {
+  if (!time0) return
+  if (a == ans) {
+    combo ++
+  }
+  else {
+    stop()
+    return
+  }
+  change()
+}
+
+function autochange () {
+  combo ++
+  change()
+}
+
 function start () {
   time0 = Date.now()
   clock = setInterval(() => { usedtime = (Date.now() - time0) / 1000 }, 16)
@@ -101,17 +110,27 @@ function stop () {
   ans = true
 }
 
+function automode (a) {
+  if (a) {
+    const auto = setInterval("autochange()",1000)
+  }
+  else {
+    clearInterval(auto)
+  }
+}
+
 let clock
 
 
 </script>
 
 <template>
-  <div class="all-transition relative h-screen flex flex-col items-center justify-center" :class="style.bg" @click.left="change(true)" @click.right="change(false)" @contextmenu.prevent>
+  <div class="all-transition relative h-screen flex flex-col items-center justify-center" :class="style.bg" @click.left="manualchange(true)" @click.right="manualchange(false)" @contextmenu.prevent>
     <div class="all-transition text-8xl" :class="style.text">{{ style.content }}</div>
     <div v-if="!time0" class="text-4xl cursor-pointer all-transition mt-10 font-mono" @click="start">CLICK HERE TO START</div>
     <div v-if="reverse" class="text-4xl text-red-500 all-transition mt-10 font-mono">REVERSE</div>
     <button class="absolute buttom-8 right-8 text-4xl font-mono" @click="save">SAVE</button>
+    <button class="absolute buttom-8 left-8 text-4xl font-mono" @click.left="automode(true)" @click.right="automode(false)">AUTO</button>
     <plus-icon v-if="plus" class="fixed w-24 h-24" :style="plus" :class="colorPlus"/>
   </div>
   <div v-if="time0" class="absolute top-8 right-8 text-4xl font-mono">used time: {{ usedtime.toFixed(3) }}, stage: {{ stage }}, combo: {{ combo }}</div>
