@@ -15,6 +15,7 @@ const rate = [0.65, 0.5, 0.35, 0.2, 0.2, 0.2, 0.2]
 
 let style = $ref({})
 let plus = $ref('')
+let auto = $ref(false)
 style.bg = 'bg-white'
 style.text = 'bg-black-500'
 style.content = 'Hello!'
@@ -74,20 +75,13 @@ function change () {
   else reverse = false 
 }
 
-function manualchange (a) {
+function manual (a) {
   if (!time0) return
-  if (a == ans) {
-    combo ++
-  }
+  if (a == ans) combo ++
   else {
     stop()
     return
   }
-  change()
-}
-
-function autochange () {
-  combo ++
   change()
 }
 
@@ -110,29 +104,34 @@ function stop () {
   ans = true
 }
 
-function automode (a) {
-  if (a) {
-    const auto = setInterval(autochange,1000)
-  }
-  else {
-    clearInterval(auto)
-  }
-}
-
 let clock
 
+const sleep = ms => new Promise(r => setTimeout(r, ms))
+
+async function zijidong () {
+  if (auto && time0) {
+    combo ++
+    change()
+  }
+  await sleep(1000)
+  zijidong()
+}
+
+zijidong()
 
 </script>
 
 <template>
-  <div class="all-transition relative h-screen flex flex-col items-center justify-center" :class="style.bg" @click.left="manualchange(true)" @click.right="manualchange(false)" @contextmenu.prevent>
-    <div class="all-transition text-8xl" :class="style.text">{{ style.content }}</div>
-    <div v-if="!time0" class="text-4xl cursor-pointer all-transition mt-10 font-mono" @click="start">CLICK HERE TO START</div>
-    <div v-if="reverse" class="text-4xl text-red-500 all-transition mt-10 font-mono">REVERSE</div>
+  <div class="all-transition h-screen flex flex-col items-center justify-center" :class="style.bg">
+    <div class="relative flex flex-col items-center justify-center border-black border-4 w-2/3 h-2/3" @click.left="manual(true)" @click.right="manual(false)" @contextmenu.prevent>
+      <div class="all-transition text-8xl" :class="style.text">{{ style.content }}</div>
+      <div v-if="!time0" class="text-4xl cursor-pointer all-transition mt-10 font-mono" @click="start">CLICK HERE TO START</div>
+      <div v-if="reverse" class="text-4xl text-red-500 all-transition mt-10 font-mono">REVERSE</div>
+    </div>
     <button class="absolute buttom-8 right-8 text-4xl font-mono" @click="save">SAVE</button>
-    <button class="absolute buttom-8 left-8 text-4xl font-mono" @click.left="automode(true)" @click.right="automode(false)">AUTO</button>
+    <button class="absolute buttom-8 left-8 text-4xl font-mono" @click="auto = !auto">AUTO: {{ auto ? 'ON' : 'OFF'}}</button>
     <plus-icon v-if="plus" class="fixed w-24 h-24" :style="plus" :class="colorPlus"/>
   </div>
   <div v-if="time0" class="absolute top-8 right-8 text-4xl font-mono">used time: {{ usedtime.toFixed(3) }}, stage: {{ stage }}, combo: {{ combo }}</div>
-  <button v-if="time0" class="absolute top-8 left-8 text-4xl font-mono" :class="style.text" @click="stop">GIVE UP</button>
+  <button v-if="time0" class="all-transition absolute top-8 left-8 text-4xl font-mono" :class="style.text" @click="stop">GIVE UP</button>
 </template>
