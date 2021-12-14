@@ -22,7 +22,7 @@ style.content = 'Hello!'
 
 let time0 = $ref(0)
 let reverse = $ref(false)
-let combo = $ref(0)
+let combo = $ref(-1)
 let stage = $ref(0)
 let usedtime = $ref(0)
 let colorPlus = $ref('')
@@ -98,7 +98,7 @@ function stop () {
   style.bg = 'bg-white'
   style.text = 'bg-black-500'
   style.content = 'Hello!'
-  combo = 0
+  combo = -1
   stage = 0
   reverse = false
   ans = true
