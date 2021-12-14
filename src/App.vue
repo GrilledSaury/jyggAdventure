@@ -76,7 +76,7 @@ function change () {
 }
 
 function manual (a) {
-  if (!time0) return
+  if (!time0 || auto) return
   if (a == ans) combo ++
   else {
     stop()
