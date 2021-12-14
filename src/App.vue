@@ -112,7 +112,7 @@ function stop () {
 
 function automode (a) {
   if (a) {
-    const auto = setInterval("autochange()",1000)
+    const auto = setInterval(autochange,1000)
   }
   else {
     clearInterval(auto)
