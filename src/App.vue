@@ -49,12 +49,12 @@ async function save() {
 
 function change () {
   if (combo == 1) {
-    lasttap = usedtime
+    lasttap = Date.now()
     res.push([style.bg, style.text, style.content, ans, reverse, colorPlus, lasttap.toFixed(3)])
   }
   else {
-    onetap = usedtime - lasttap
-    lasttap = usedtime
+    onetap = (Date.now() - lasttap) / 1000
+    lasttap = Date.now()
     res.push([style.bg, style.text, style.content, ans, reverse, colorPlus, onetap.toFixed(3)])
   }
   if (combo == 30) stage = 1
