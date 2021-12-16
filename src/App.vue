@@ -25,6 +25,8 @@ let reverse = $ref(false)
 let combo = $ref(-1)
 let stage = $ref(0)
 let usedtime = $ref(0)
+let lasttap = $ref(0)
+let onetap = $ref(0)
 let colorPlus = $ref('')
 let ans = true
 
@@ -46,6 +48,15 @@ async function save() {
 }
 
 function change () {
+  if (combo == 1) {
+    lasttap = usedtime
+    res.push([style.bg, style.text, style.content, ans, reverse, colorPlus, lasttap.toFixed(3)])
+  }
+  else {
+    onetap = usedtime - lasttap
+    lasttap = usedtime
+    res.push([style.bg, style.text, style.content, ans, reverse, colorPlus, onetap.toFixed(3)])
+  }
   if (combo == 30) stage = 1
   if (combo == 60) stage = 2
   if (combo == 90) stage = 3
@@ -95,6 +106,8 @@ function stop () {
   res.push([usedtime, stage, combo])
   clearInterval(clock)
   time0 = 0
+  lasttap = 0
+  onetap = 0
   style.bg = 'bg-white'
   style.text = 'bg-black-500'
   style.content = 'Hello!'
