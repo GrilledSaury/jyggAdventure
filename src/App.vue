@@ -48,9 +48,8 @@ async function save() {
 }
 
 function change () {
-  if (combo == 1) {
+  if (combo == 0) {
     lasttap = Date.now()
-    res.push([style.bg, style.text, style.content, ans, reverse, colorPlus, lasttap.toFixed(3)])
   }
   else {
     onetap = (Date.now() - lasttap) / 1000
