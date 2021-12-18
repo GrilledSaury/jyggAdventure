@@ -4,7 +4,7 @@ import { PlusIcon } from '@heroicons/vue/outline'
 const data = [{ bg: 'bg-blue-200', text: 'text-blue-500', content: ['蓝', 'Blue'] },
   { bg: 'bg-red-200', text: 'text-red-500', content: ['红', 'Red'] },
   { bg: 'bg-gray-200', text: 'text-black', content: ['黑', 'Black'] },
-  { bg: 'bg-yellow-200', text: 'text-yellow-500', content: ['黄', 'Yellow'] },
+  { bg: 'bg-yellow-200', text: 'text-yellow-400', content: ['黄', 'Yellow'] },
   { bg: 'bg-purple-200', text: 'text-purple-500', content: ['紫', 'Purple'] },
   { bg: 'bg-green-200', text: 'text-green-500', content: ['绿', 'Green'] },
   { bg: 'bg-cyan-200', text: 'text-cyan-500', content: ['青','Cyan'] },
