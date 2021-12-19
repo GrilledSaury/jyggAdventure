@@ -23,6 +23,7 @@ style.content = 'Hello!'
 let time0 = $ref(0)
 let reverse = $ref(false)
 let combo = $ref(-1)
+let num = $ref(0)
 let stage = $ref(0)
 let usedtime = $ref(0)
 let lasttap = $ref(0)
@@ -42,6 +43,7 @@ const renderPlus = () => {
 async function save() {
   const newHandle = await window.showSaveFilePicker();
   const writableStream = await newHandle.createWritable();
+  res.push(num)
   const blob = new Blob([JSON.stringify(res)], {type : 'application/json'})
   await writableStream.write(blob);
   await writableStream.close();
@@ -110,6 +112,8 @@ function stop () {
   style.bg = 'bg-white'
   style.text = 'bg-black-500'
   style.content = 'Hello!'
+  colorPlus = ''
+  num ++
   combo = -1
   stage = 0
   reverse = false
